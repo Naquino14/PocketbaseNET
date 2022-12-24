@@ -95,5 +95,20 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         /// <returns></returns>
         public abstract BaseModel Clone();
+
+        /// <summary>
+        /// Exports all model properties as a new plain object.
+        /// </summary>
+        /// <returns></returns>
+        public object Export()
+        {
+            var data = new
+            {
+                id = ID,
+                created = CreatedAt,
+                updated = UpdatedAt
+            };
+            return data;
+        }
     }
 }
