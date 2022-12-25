@@ -4,11 +4,11 @@
     /// NOT YET IMPLEMENTED
     /// This is a placeholder class.
     /// </summary>
-    public class RealtimeService
+    public class AdminService
     {
         private Client client;
 
-        public RealtimeService(Client client)
+        public AdminService(Client client)
         {
             this.client = client;
         }

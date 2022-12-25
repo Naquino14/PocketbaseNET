@@ -4,11 +4,11 @@
     /// NOT YET IMPLEMENTED
     /// This is a placeholder class.
     /// </summary>
-    public class AdminService
+    public class HealthService
     {
         private Client client;
 
-        public AdminService(Client client)
+        public HealthService(Client client)
         {
             this.client = client;
         }

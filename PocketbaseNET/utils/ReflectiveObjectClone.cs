@@ -2,19 +2,24 @@
 
 namespace PocketbaseNET.utils
 {
-    internal class Cloner
+    public class Cloner
     {
-        internal static object? ReflectiveClone(object? source)
+        /// <summary>
+        /// Reflectively and recursively clone an object.
+        /// </summary>
+        /// <param name="source">The object to clone. <b>Must not be of an anonymous type.</b></param>
+        /// <returns></returns>
+        public static object? ReflectiveClone(object? source)
         {
             if (source is null)
                 return null;
-            
+
             Type srcType = source.GetType();
             object? target = Activator.CreateInstance(srcType);
-            
+
             if (target is null)
                 return null;
-            
+
             BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
             var propInfos = srcType.GetProperties(flags);
 

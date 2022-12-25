@@ -4,11 +4,11 @@
     /// NOT YET IMPLEMENTED
     /// This is a placeholder class.
     /// </summary>
-    public class LogService
+    public class CollectionService
     {
         private Client client;
 
-        public LogService(Client client)
+        public CollectionService(Client client)
         {
             this.client = client;
         }

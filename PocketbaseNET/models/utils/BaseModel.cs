@@ -9,11 +9,12 @@ namespace PocketbaseNET.models.utils
         /// <summary>
         /// The ID of the model. 
         /// </summary>
-        public string ID { 
-            get => Get<string>("id"); 
-            private set => this["id"] = value; 
+        public string ID
+        {
+            get => Get<string>("id");
+            private set => this["id"] = value;
         }
-        
+
         /// <summary>
         /// The timestamp of the model.
         /// </summary>
@@ -26,7 +27,8 @@ namespace PocketbaseNET.models.utils
         /// <summary>
         /// The timestamp that the model was last modifed at.
         /// </summary>
-        public string UpdatedAt {
+        public string UpdatedAt
+        {
             get => Get<string>("updated");
             private set => this["updated"] = value;
         }
@@ -59,7 +61,7 @@ namespace PocketbaseNET.models.utils
         /// Loads <b>data</b> into the current model.
         /// </summary>
         /// <param name="data">The dictionary of the data to load into the model.</param>
-        protected void Load(Dictionary<string, object> data) 
+        protected void Load(Dictionary<string, object> data)
             => data.Keys.ToList().ForEach(k => this[k] = data[k] ?? "");
 
         /// <summary>

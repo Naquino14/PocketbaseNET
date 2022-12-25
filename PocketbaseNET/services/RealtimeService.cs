@@ -4,11 +4,11 @@
     /// NOT YET IMPLEMENTED
     /// This is a placeholder class.
     /// </summary>
-    public class CollectionService
+    public class RealtimeService
     {
         private Client client;
 
-        public CollectionService(Client client)
+        public RealtimeService(Client client)
         {
             this.client = client;
         }
