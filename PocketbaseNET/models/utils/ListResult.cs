@@ -67,5 +67,15 @@ namespace PocketbaseNET.models.utils
             }
 
         }
+
+        /// <summary>
+        /// Enumerate over the list result items.
+        /// </summary>
+        /// <returns>The enumerator object.</returns>
+        public IEnumerator<M> GetEnumerator()
+        {
+            for (int i = 0; i < Items.Length; i++)
+                yield return Items[i];
+        }
     }
 }
