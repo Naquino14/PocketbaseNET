@@ -67,6 +67,12 @@ namespace PocketbaseNET
         /// </summary>
         public HealthService Health { get; private set; }
 
+        /// <summary>
+        /// Creare a new client.
+        /// </summary>
+        /// <param name="baseUrl">The base url of the Pocketbase instance.</param>
+        /// <param name="authStore">Overwrite the default AuthStore.</param>
+        /// <param name="lang">The language of the Pocketbase instance (default is en-US).</param>
         public Client(string? baseUrl = null, BaseAuthStore? authStore = null, string? lang = null)
         {
             BaseURL = baseUrl ?? BaseURL;

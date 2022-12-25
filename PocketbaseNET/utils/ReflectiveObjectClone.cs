@@ -2,6 +2,9 @@
 
 namespace PocketbaseNET.utils
 {
+    /// <summary>
+    /// A utility class for deep cloning.
+    /// </summary>
     public class Cloner
     {
         /// <summary>

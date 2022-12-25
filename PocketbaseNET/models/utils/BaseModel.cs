@@ -2,8 +2,14 @@
 
 namespace PocketbaseNET.models.utils
 {
+    /// <summary>
+    /// The superclass of all models.
+    /// </summary>
     public abstract class BaseModel
     {
+        /// <summary>
+        /// The model data dictionary.
+        /// </summary>
         protected Dictionary<string, object> data;
 
         /// <summary>
@@ -33,6 +39,12 @@ namespace PocketbaseNET.models.utils
             private set => this["updated"] = value;
         }
 
+        /// <summary>
+        /// Auto cast and get indexed data from the model.
+        /// </summary>
+        /// <typeparam name="T">The data type to cast to.</typeparam>
+        /// <param name="k">The key to index.</param>
+        /// <returns></returns>
         protected T Get<T>(string k) => (T)this[k];
 
         /// <summary>

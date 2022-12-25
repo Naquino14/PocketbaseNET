@@ -351,3 +351,4 @@ MigrationBackup/
 
 pb_data/
 pocketbase.exe
+PocketbaseNET/nuget.config

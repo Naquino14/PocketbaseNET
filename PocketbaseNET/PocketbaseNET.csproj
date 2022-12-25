@@ -13,14 +13,14 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>API, Pocketbase, C#</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageLicenseFile>LICENCE.md</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/Naquino14/PocketbaseNET</PackageProjectUrl>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\LICENCE.md">
+    <None Include="..\LICENSE.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
