@@ -19,16 +19,16 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         public string CreatedAt
         {
-            get => Get<string>("id");
-            private set => this["id"] = value;
+            get => Get<string>("created");
+            private set => this["created"] = value;
         }
 
         /// <summary>
         /// The timestamp that the model was last modifed at.
         /// </summary>
         public string UpdatedAt {
-            get => Get<string>("id");
-            private set => this["id"] = value;
+            get => Get<string>("updated");
+            private set => this["updated"] = value;
         }
 
         protected T Get<T>(string k) => (T)this[k];
@@ -59,15 +59,8 @@ namespace PocketbaseNET.models.utils
         /// Loads <b>data</b> into the current model.
         /// </summary>
         /// <param name="data">The dictionary of the data to load into the model.</param>
-        protected void Load(Dictionary<string, object> data)
-        {
-            data.Keys.ToList().ForEach(k => this[k] = data[k]);
-
-            // nullcheck fields
-            ID = (string)data["id"] ?? "";
-            CreatedAt = (string)data["created"] ?? "";
-            UpdatedAt = (string)data["updated"] ?? "";
-        }
+        protected void Load(Dictionary<string, object> data) 
+            => data.Keys.ToList().ForEach(k => this[k] = data[k] ?? "");
 
         /// <summary>
         /// Returns whether the current loaded data represent a stored db record.
