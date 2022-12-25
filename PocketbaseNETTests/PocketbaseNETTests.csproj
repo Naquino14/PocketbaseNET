@@ -7,9 +7,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 
-    <Version>$(VersionPrefix)</Version>
+    <Version>1.0.0.1</Version>
 
     <Title>PocketbaseNET</Title>
 
