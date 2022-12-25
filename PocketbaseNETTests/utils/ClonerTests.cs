@@ -32,7 +32,7 @@ namespace PocketbaseNET.utils.Tests
             var obj2 = (Person?)(Cloner.ReflectiveClone(obj1) ?? null);
             if (obj2 is null)
                 Assert.Fail();
-            Assert.AreEqual(obj1.Name, obj2);
+            Assert.AreEqual(obj1.Name, obj2.Name);
         }
     }
 }
