@@ -76,8 +76,9 @@ namespace PocketbaseNET.models.utils
             Load(data);
         }
 
-        private void Load(Dictionary<string, object> data)
+        private void Load(Dictionary<string, object>? data)
         {
+            data ??= new();
             ID = (string)(data["id"] ?? "");
             Name = (string)(data["name"] ?? "");
             Type = (string)(data["type"] ?? "text");
