@@ -1,0 +1,91 @@
+﻿using PocketbaseNET.utils;
+
+namespace PocketbaseNET.models.utils
+{
+    /// <summary>
+    /// The schema field class. (TODO: add more info)
+    /// </summary>
+    public class SchemaField
+    {
+        /// <summary>
+        /// The id of the schema.
+        /// </summary>
+        public string ID 
+        {
+            get => (string)Options["id"];
+            private set => Options["id"] = value; 
+        }
+        
+        /// <summary>
+        /// The name of the schema.
+        /// </summary>
+        public string Name 
+        {
+            get => (string)Options["name"];
+            private set => Options["name"] = value; 
+        }
+        
+        /// <summary>
+        /// The type of the schema.
+        /// </summary>
+        public string Type 
+        {
+            get => (string)Options["type"];
+            private set => Options["type"] = value; 
+        }
+        
+        /// <summary>
+        /// Returns true if the schema is a system.
+        /// </summary>
+        public bool System 
+        {
+            get => (bool)Options["system"];
+            private set => Options["system"] = value; 
+        }
+
+        /// <summary>
+        /// Im actually not sure what this is for.
+        /// </summary>
+        public bool Required 
+        {
+            get => (bool)Options["required"]; 
+            private set => Options["required"] = value; 
+        }
+        
+        /// <summary>
+        /// Returns true if the schema is unique.
+        /// </summary>
+        public bool Unique 
+        { 
+            get => (bool)Options["unique"];
+            private set => Options["unique"] = value;
+        }
+
+        /// <summary>
+        /// The options dictionary of the schema.
+        /// </summary>
+        public Dictionary<string, object> Options { get; private set; }
+
+        /// <summary>
+        /// Create a new Schema Field.
+        /// </summary>
+        /// <param name="data">The data to be loaded into the schema.</param>
+        public SchemaField(Dictionary<string, object> data) 
+        {
+            Options = new();
+            Load(data);
+        }
+
+        private void Load(Dictionary<string, object> data)
+        {
+            ID = (string)(data["id"] ?? "");
+            Name = (string)(data["name"] ?? "");
+            Type = (string)(data["type"] ?? "text");
+            System = (bool)(data["system"] ?? false);
+            Required = (bool)(data["required"] ?? false);
+            Unique = (bool)(data["unique"] ?? false);
+
+            data.Keys.ToList().ForEach(k => Options.Add(k, Cloner.ReflectiveClone(data[k])!));
+        }
+    }
+}
