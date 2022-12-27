@@ -11,17 +11,26 @@ namespace PocketbaseNET.utils
         /// Reflectively and recursively clone an object.
         /// </summary>
         /// <param name="source">The object to clone. <b>Must not be of an anonymous type.</b></param>
-        /// <returns></returns>
+        /// <returns>The cloned object.</returns>
         public static object? ReflectiveClone(object? source)
         {
             if (source is null)
                 return null;
 
+            object? target;
             Type srcType = source.GetType();
-            object? target = Activator.CreateInstance(srcType);
 
-            if (target is null)
-                return null;
+            if (srcType.IsValueType || srcType.IsEnum || srcType.Equals(typeof(string)))
+                return source; // cloning not required
+
+            try
+            {
+                target = Activator.CreateInstance(srcType);
+            } catch (Exception e)
+            {
+                throw new CloneException($"An exception occured when cloning: {e.Message}", e);
+            }
+
 
             BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
             var propInfos = srcType.GetProperties(flags);
@@ -36,9 +45,24 @@ namespace PocketbaseNET.utils
                         if (propVal is not null)
                             propInfo.SetValue(target, ReflectiveClone(propVal), null);
                         else
-                            propInfo.SetValue(target, null, null);
+                            propInfo.SetValue(target, null, null);  
                     }
             return target;
         }
+
+        /// <summary>
+        /// Reflectively and recursively clone an object, then cast it to a type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The type to cast the result to</typeparam>
+        /// <param name="source">The object to clone. <b>Must not be of an anonymous type.</b></param>
+        /// <returns>The cloned object.</returns>
+        public static T? ReflectiveClone<T>(object? source) => (T?)ReflectiveClone(source);
+    }
+
+    internal class CloneException : Exception
+    {
+        internal CloneException() : base() { }
+        internal CloneException(string message) : base(message) { }
+        internal CloneException(string message, Exception inner) : base(message, inner) { }
     }
 }

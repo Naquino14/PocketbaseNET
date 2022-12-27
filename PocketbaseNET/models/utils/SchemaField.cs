@@ -1,4 +1,5 @@
 ﻿using PocketbaseNET.utils;
+using PocketbaseNETTests.models.utils;
 
 namespace PocketbaseNET.models.utils
 {
@@ -12,7 +13,7 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         public string ID 
         {
-            get => (string)Options["id"];
+            get => (string)Options["id"]!;
             private set => Options["id"] = value; 
         }
         
@@ -21,7 +22,7 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         public string Name 
         {
-            get => (string)Options["name"];
+            get => (string)Options["name"]!;
             private set => Options["name"] = value; 
         }
         
@@ -30,7 +31,7 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         public string Type 
         {
-            get => (string)Options["type"];
+            get => (string)Options["type"]!;
             private set => Options["type"] = value; 
         }
         
@@ -39,7 +40,7 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         public bool System 
         {
-            get => (bool)Options["system"];
+            get => (bool)Options["system"]!;
             private set => Options["system"] = value; 
         }
 
@@ -48,7 +49,7 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         public bool Required 
         {
-            get => (bool)Options["required"]; 
+            get => (bool)Options["required"]!; 
             private set => Options["required"] = value; 
         }
         
@@ -57,14 +58,14 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         public bool Unique 
         { 
-            get => (bool)Options["unique"];
+            get => (bool)Options["unique"]!;
             private set => Options["unique"] = value;
         }
 
         /// <summary>
         /// The options dictionary of the schema.
         /// </summary>
-        public Dictionary<string, object> Options { get; private set; }
+        public NullableDictionary<string, object> Options { get; private set; }
 
         /// <summary>
         /// Create a new Schema Field.
@@ -79,14 +80,18 @@ namespace PocketbaseNET.models.utils
         private void Load(Dictionary<string, object>? data)
         {
             data ??= new();
-            ID = (string)(data["id"] ?? "");
-            Name = (string)(data["name"] ?? "");
-            Type = (string)(data["type"] ?? "text");
-            System = (bool)(data["system"] ?? false);
-            Required = (bool)(data["required"] ?? false);
-            Unique = (bool)(data["unique"] ?? false);
+            var _data = NullableDictionary.FromDictToNullableDict(data);
+            ID = (string)(_data["id"] ?? "");
+            Name = (string)(_data["name"] ?? "");
+            Type = (string)(_data["type"] ?? "text");
+            System = (bool)(_data["system"] ?? false);
+            Required = (bool)(_data["required"] ?? false);
+            Unique = (bool)(_data["unique"] ?? false);
 
-            data.Keys.ToList().ForEach(k => Options.Add(k, Cloner.ReflectiveClone(data[k])!));
+            _data.Keys.ToList().ForEach(k => {
+                if (!Options.ContainsKey(k)) 
+                    Options.Add(k, _data[k]);
+            });
         }
     }
 }

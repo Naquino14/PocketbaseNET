@@ -34,5 +34,28 @@ namespace PocketbaseNET.utils.Tests
                 Assert.Fail();
             Assert.AreEqual(obj1.Name, obj2.Name);
         }
+
+        [TestMethod()]
+        public void ReflectiveCloneTest1()
+        {
+            string a = "Hello";
+            var b = Cloner.ReflectiveClone(a);
+            Assert.AreEqual(a, b);
+
+            b = "World";
+            Assert.AreNotEqual(a, b);
+        }
+
+        [TestMethod()]
+        public void ReflectiveCloneTest2()
+        {
+            int a = 69;
+            var b = Cloner.ReflectiveClone(a);
+            Assert.AreEqual(a, b);
+
+            b = 420;
+            Assert.AreNotEqual(a, b);
+        }
+        
     }
 }
