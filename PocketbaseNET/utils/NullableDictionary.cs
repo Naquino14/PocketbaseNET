@@ -1,7 +1,6 @@
 ﻿// This is single handedly the most cursed C# class I have ever written
-using PocketbaseNET.utils;
 
-namespace PocketbaseNETTests.models.utils
+namespace PocketbaseNET.utils
 {
     /// <summary>
     /// Represents a collection of keys and nullable values.
@@ -15,7 +14,7 @@ namespace PocketbaseNETTests.models.utils
         /// </summary>
         /// <param name="key">The key of the element to get or set.</param>
         /// <returns>The element with the specified key.</returns>
-        public new TValue? this[TKey key] 
+        public new TValue? this[TKey key]
         {
             get => ContainsKey(key) ? base[key] : default;
             set => base[key] = value!;
@@ -50,7 +49,7 @@ namespace PocketbaseNETTests.models.utils
         /// </summary>
         /// <param name="key">The key of the element to add.</param>
         /// <param name="value">The value of the element to add.</param>
-        public new void Add(TKey key, TValue? value) 
+        public new void Add(TKey key, TValue? value)
             => base.Add(key, (value ?? default) ?? (TValue)new object());
     }
 

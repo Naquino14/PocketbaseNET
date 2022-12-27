@@ -1,5 +1,4 @@
 ﻿using PocketbaseNET.utils;
-using PocketbaseNETTests.models.utils;
 
 namespace PocketbaseNET.models.utils
 {

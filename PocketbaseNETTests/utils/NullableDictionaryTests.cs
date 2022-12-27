@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PocketbaseNETTests.models.utils;
+using PocketbaseNET.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PocketbaseNETTests.models.utils.Tests
+namespace PocketbaseNET.utils.Tests
 {
     [TestClass()]
     public class NullableDictionaryTests
@@ -62,15 +62,16 @@ namespace PocketbaseNETTests.models.utils.Tests
             Assert.AreEqual(56, dict["b"]);
             Assert.AreEqual(c, dict["c"]);
         }
-        
+
         [TestMethod()]
         public void NullableDictionaryTest3()
         {
-            
+
         }
 
         [TestMethod()]
-        public void NullableDictionaryAddTest() {
+        public void NullableDictionaryAddTest()
+        {
             var dict = new NullableDictionary<Exception, int>();
             var ex = new Exception("Hello");
             dict.Add(ex, 69);
