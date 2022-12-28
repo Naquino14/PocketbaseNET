@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace PocketbaseNET.models
 {
+    /// <summary>
+    /// A record represents a single row in a table.
+    /// </summary>
     public class Record : BaseModel
     {
         /// <summary>
@@ -19,12 +22,18 @@ namespace PocketbaseNET.models
             set => this["collectionId"] = value;
         }
 
+        /// <summary>
+        /// The collection this record belongs to.
+        /// </summary>
         public string CollectionName
         {
             get => Get<string>("collectionName")!;
             set => this["collectionName"] = value;
         }
 
+        /// <summary>
+        /// The relational data attatched to this record.
+        /// </summary>
         public NullableDictionary<string, Record[]?> Expand
         {
             get => Get<NullableDictionary<string, Record[]?>>("expand")!;
