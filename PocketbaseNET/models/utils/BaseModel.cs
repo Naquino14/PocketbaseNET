@@ -1,4 +1,5 @@
 ﻿using PocketbaseNET.utils;
+using System.Collections;
 
 namespace PocketbaseNET.models.utils
 {
@@ -10,14 +11,14 @@ namespace PocketbaseNET.models.utils
         /// <summary>
         /// The model data dictionary.
         /// </summary>
-        protected Dictionary<string, object> data;
+        protected NullableDictionary<string, object?> data;
 
         /// <summary>
         /// The ID of the model. 
         /// </summary>
         public string ID
         {
-            get => Get<string>("id");
+            get => Get<string>("id")!;
             private set => this["id"] = value;
         }
 
@@ -26,7 +27,7 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         public string CreatedAt
         {
-            get => Get<string>("created");
+            get => Get<string>("created")!;
             private set => this["created"] = value;
         }
 
@@ -35,7 +36,7 @@ namespace PocketbaseNET.models.utils
         /// </summary>
         public string UpdatedAt
         {
-            get => Get<string>("updated");
+            get => Get<string>("updated")!;
             private set => this["updated"] = value;
         }
 
@@ -45,14 +46,14 @@ namespace PocketbaseNET.models.utils
         /// <typeparam name="T">The data type to cast to.</typeparam>
         /// <param name="k">The key to index.</param>
         /// <returns></returns>
-        protected T Get<T>(string k) => (T)this[k];
+        protected T? Get<T>(string k) => (T?)this[k];
 
         /// <summary>
         /// The index accessor of the model. This is used to access the data dictionary.
         /// </summary>
         /// <param name="key">The string key of the object.</param>
         /// <returns>The object associated with that key.</returns>
-        public object this[string key]
+        public object? this[string key]
         {
             get => data[key];
             set => data[key] = value;
@@ -66,15 +67,21 @@ namespace PocketbaseNET.models.utils
         {
             this.data = new();
             if (data is not null)
-                Load(data);
+                Load(NullableDictionary.FromDictToNullableDict(data));
         }
 
         /// <summary>
         /// Loads <b>data</b> into the current model.
         /// </summary>
         /// <param name="data">The dictionary of the data to load into the model.</param>
-        protected void Load(Dictionary<string, object> data)
-            => data.Keys.ToList().ForEach(k => this[k] = data[k] ?? "");
+        protected virtual void Load(NullableDictionary<string, object> data)
+        {
+            data.Keys.ToList().ForEach(k => this[k] = data[k]);
+
+            ID = (string)data["id"]!;
+            CreatedAt = (string)data["created"]!;
+            UpdatedAt = (string)data["updated"]!;    
+        }
 
         /// <summary>
         /// Returns whether the current loaded data represent a stored db record.
@@ -101,7 +108,7 @@ namespace PocketbaseNET.models.utils
         /// Creates a deep clone of the current object.
         /// </summary>
         /// <returns></returns>
-        public abstract BaseModel Clone();
+        public virtual BaseModel Clone() => (BaseModel)Cloner.ReflectiveClone(this)!;
 
         /// <summary>
         /// Exports all model properties as a new plain object.
