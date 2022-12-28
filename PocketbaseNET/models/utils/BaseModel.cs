@@ -78,9 +78,9 @@ namespace PocketbaseNET.models.utils
         {
             data.Keys.ToList().ForEach(k => this[k] = data[k]);
 
-            ID = (string)data["id"]!;
-            CreatedAt = (string)data["created"]!;
-            UpdatedAt = (string)data["updated"]!;    
+            ID = (string)(data["id"] ?? throw new ArgumentException("Property ID cannot be null when loading data into a model."));
+            CreatedAt = (string)(data["created"] ?? throw new ArgumentException("Property CreatedAt cannot be null when loading data into a model."));
+            UpdatedAt = (string)(data["updated"] ?? throw new ArgumentException("Property UpdatedAt cannot be null when loading data into a model."));
         }
 
         /// <summary>
