@@ -22,6 +22,19 @@ namespace PocketbaseNET.utils
 
             if (srcType.IsValueType || srcType.IsEnum || srcType.Equals(typeof(string)))
                 return source; // cloning not required
+            
+            if (srcType.IsArray) // handle array cloning
+            {
+                Type srcBaseType = srcType.GetElementType()!;
+                var srcAsArray = (Array)source;
+                
+                target = Array.CreateInstance(srcBaseType, srcAsArray.Length);
+                
+                for (int i = 0; i < srcAsArray.Length; i++)
+                    ((Array)target).SetValue(ReflectiveClone(srcAsArray.GetValue(i)), i);
+
+                return target;
+            }
 
             try
             {

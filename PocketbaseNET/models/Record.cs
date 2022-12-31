@@ -41,6 +41,17 @@ namespace PocketbaseNET.models
         }
 
         /// <summary>
+        /// Create a new record.
+        /// </summary>
+        /// <param name="data"><inheritdoc/></param>
+        public Record(Dictionary<string, object>? data = null) : base(data) {}
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public Record() : base() { }
+
+        /// <summary>
         /// <inheritdoc/>
         /// </summary>
         /// <param name="data"></param>
@@ -55,7 +66,9 @@ namespace PocketbaseNET.models
             LoadExpand((NullableDictionary<string, Record[]?>)(data["expand"] ?? new NullableDictionary<string, Record[]?>()));
         }
 
-        private void LoadExpand(NullableDictionary<string, Record[]?> expand) // i can see this potentially causing
+        public void LoadExpand(NullableDictionary<string, Record[]?> expand) // i can see this potentially causing
             => expand.Keys.ToList().ForEach(k => Expand[k] = expand[k]); // a million problems
+
+        public void LoadExpand(Dictionary<string, Record[]?> expand) => LoadExpand(NullableDictionary.FromDictToNullableDict(expand));
     }
 }
