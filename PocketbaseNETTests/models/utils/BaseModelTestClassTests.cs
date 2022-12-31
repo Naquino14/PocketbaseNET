@@ -21,7 +21,7 @@ namespace PocketbaseNET.models.utils.Tests
                 { "created", "12/28/22" },
                 { "updated", "" },
             };
-            BaseModel model = new BaseModelTestClass(NullableDictionary.FromDictToNullableDict(data));
+            BaseModel model = new BaseModelTestClass(NullableDictionary.FromDictToNullableDictDeepClone(data));
 
             Assert.AreEqual("testid12345", model.ID);
             Assert.AreEqual("12/28/22", model.CreatedAt);
@@ -39,7 +39,7 @@ namespace PocketbaseNET.models.utils.Tests
             };
 
             Assert.ThrowsException<ArgumentException>(() 
-                => new BaseModelTestClass(NullableDictionary.FromDictToNullableDict(data)!));
+                => new BaseModelTestClass(NullableDictionary.FromDictToNullableDictDeepClone(data)!));
         }
     }
 }

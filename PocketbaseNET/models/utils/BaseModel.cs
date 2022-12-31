@@ -67,7 +67,7 @@ namespace PocketbaseNET.models.utils
         {
             this.data = new();
             if (data is not null)
-                Load(NullableDictionary.FromDictToNullableDict(data));
+                Load(NullableDictionary.FromDictToNullableDictDeepClone(data));
         }
 
         /// <summary>

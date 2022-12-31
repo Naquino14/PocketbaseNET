@@ -59,15 +59,31 @@ namespace PocketbaseNET.utils
     public static class NullableDictionary
     {
         /// <summary>
-        /// Convert from a <see cref="NullableDictionary{TKey, TValue}"/> to a <see cref="Dictionary{TKey, TValue}"/>.
+        /// Convert from a <see cref="NullableDictionary{TKey, TValue}"/> to a <see cref="Dictionary{TKey, TValue}"/>. This method attempts to deep clone the dictionary.
         /// </summary>
         /// <param name="dictionary">The source dictionary</param>
+        /// <exception cref="CloneException">Thrown when cloning of any object in the source dictionary fails.</exception>
         /// <returns>The <see cref="NullableDictionary{TKey, TValue}"/> derived from the source.</returns>
-        public static NullableDictionary<TKey, TValue> FromDictToNullableDict<TKey, TValue>(Dictionary<TKey, TValue> dictionary) where TKey : notnull
+        public static NullableDictionary<TKey, TValue> FromDictToNullableDictDeepClone<TKey, TValue>(Dictionary<TKey, TValue> dictionary) where TKey : notnull
         {
             NullableDictionary<TKey, TValue> nullableDict = new();
             foreach (KeyValuePair<TKey, TValue> pair in dictionary)
                 nullableDict[pair.Key] = Cloner.ReflectiveClone<TValue>(pair.Value)!;
+            return nullableDict;
+        }
+
+        /// <summary>
+        /// Convert from a <see cref="Dictionary{TKey, TValue}"/> to a <see cref="NullableDictionary{TKey, TValue}"/>.
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dictionary"></param>
+        /// <returns></returns>
+        public static NullableDictionary<TKey, TValue> FromDictToNullableDict<TKey, TValue>(Dictionary<TKey, TValue> dictionary) where TKey : notnull
+        {
+            NullableDictionary<TKey, TValue> nullableDict = new();
+            foreach (KeyValuePair<TKey, TValue> pair in dictionary)
+                nullableDict[pair.Key] = pair.Value;
             return nullableDict;
         }
     }

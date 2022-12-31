@@ -79,7 +79,7 @@ namespace PocketbaseNET.models.utils
         private void Load(Dictionary<string, object>? data)
         {
             data ??= new();
-            var _data = NullableDictionary.FromDictToNullableDict(data);
+            var _data = NullableDictionary.FromDictToNullableDictDeepClone(data);
             ID = (string)(_data["id"] ?? "");
             Name = (string)(_data["name"] ?? "");
             Type = (string)(_data["type"] ?? "text");
